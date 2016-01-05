@@ -15,11 +15,6 @@ var username = readlineSync.question('Writing.com Username: ');
 var passwd = readlineSync.question('Writing.com Password: ', {
   hideEchoBack: true
 });
-var options = {
-  host: domain,
-  path: testPath
-//  auth: username + ':' + passwd
-}
 
 getLoginSession(username, passwd, function(session) {
   getStory(session, 'https://' + domain + testPath);
@@ -62,17 +57,21 @@ function getLoginSession(user, passwd, callback) {
 function getStory(session, url) {
   var cookieString = '';
   session.forEach(function(elem) {
-    if(elem.)
-    cookieString += elem.
   });
   var options = {
     hostname: url,
     headers: {
-      ''
+      'cookie': cookieString
     }
   };
+  var story = {
+    title: null,
+    author: null,
+    rating: null,
+    desc: null
+  };
   //console.log('Requesting https://%s%s...', options.host, options.path)
-  var req = https.get(url, function(res) {
+  var req = https.get(options, function(res) {
     console.log("Status: " + res.statusCode);
     console.log('Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
