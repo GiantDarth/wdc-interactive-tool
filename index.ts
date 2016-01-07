@@ -1,5 +1,5 @@
-/// <reference path="./typings/node/node.d.ts" />
-/// <reference path="./typings/cheerio/cheerio.d.ts" />
+/// <reference path="./typings/tsd.d.ts" />
+/// <reference path="./typings/wdc.d.ts" />
 
 import https = require('https');
 import cheerio = require('cheerio');
@@ -11,10 +11,8 @@ var querystring = require('querystring');
 var domain = "www.writing.com";
 var testPath = "/main/interact/item_id/1424917-Really-Random-Questions";
 
-var username = readlineSync.question('Writing.com Username: ');
-var passwd = readlineSync.question('Writing.com Password: ', {
-  hideEchoBack: true
-});
+var username = process.argv[process.argv.indexOf("-u") + 1];
+var passwd = process.argv[process.argv.indexOf("-p") + 1];
 
 getLoginSession(username, passwd, function(session) {
   getStory(session, 'https://' + domain + testPath);
