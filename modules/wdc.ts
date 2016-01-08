@@ -1,4 +1,4 @@
-module WDC {
+export module WDC {
     export class Story {
         id: number;
         title: string;
