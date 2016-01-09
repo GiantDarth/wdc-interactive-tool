@@ -23,11 +23,11 @@
     "buildOnSave": false,
     "files": [
         "index.ts",
-        "modules/wdc.ts",
         "typings/cheerio/cheerio.d.ts",
         "typings/jquery/jquery.d.ts",
         "typings/node/node.d.ts",
-        "typings/tsd.d.ts"
+        "typings/tsd.d.ts",
+        "wdc.ts"
     ],
     "atom": {
         "rewriteTsconfig": true
