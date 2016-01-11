@@ -4,7 +4,7 @@
   "description": "Extracts the data of an WDC Interactive Story into a JSON file.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node index -u %WDC_USER% -p %WDC_PASSWORD% https://www.writing.com/main/interact/item_id/1424917-Really-Random-Questions"
   },
   "author": "",
   "license": "ISC",
