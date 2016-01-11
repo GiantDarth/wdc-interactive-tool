@@ -1,3 +1,5 @@
+// Copyright (c) 2015 Christopher Robert Philabaum
+
 /// <reference path="./typings/tsd.d.ts" />
 
 import https = require('https');
@@ -9,7 +11,6 @@ import fs = require('fs');
 import * as WDC from './modules/wdc';
 
 // Cannot import, no definition.
-// User readline-sync for password hiding.
 let cookie = require('cookie');
 let querystring = require('querystring');
 const HOST = 'www.writing.com';

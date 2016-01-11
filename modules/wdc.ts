@@ -1,3 +1,5 @@
+// Copyright (c) 2015 Christopher Robert Philabaum
+
 export class Story {
     id: number;
     title: string;
@@ -10,61 +12,6 @@ export class Story {
     description: string;
     url: string;
     posts: Post[];
-
-    // addPost(post: Post): void {
-    //     // One run of insertion sort.
-    //     let minIndex = 0,
-    //         maxIndex = this._posts.length - 1,
-    //         midIndex = 0;
-    //     while(minIndex <= maxIndex) {
-    //         midIndex = Math.floor((maxIndex + minIndex) / 2);
-    //         if(this._posts[midIndex].id === post.id) {
-    //             throw new Error("Post ID already exists.");
-    //         }
-    //         else if(this._posts[midIndex].id < post.id) {
-    //             minIndex = midIndex + 1;
-    //         }
-    //         else {
-    //             maxIndex = midIndex - 1;
-    //         }
-    //     }
-    //     this._posts.splice(midIndex, 0, post);
-    // }
-    //
-    // removePost(postId: number): Post {
-    //     let i = this.findPostIndex(postId);
-    //     if(i < 0)
-    //     {
-    //         return null;
-    //     }
-    //     else {
-    //         return this._posts.splice(i, 1);
-    //     }
-    // }
-    //
-    // findPostIndex(postId: number): number {
-    //     let minIndex = 0,
-    //         maxIndex = this._posts.length - 1;
-    //     while(minIndex <= maxIndex) {
-    //         let midIndex = Math.floor((maxIndex + minIndex) / 2);
-    //         if(this._posts[midIndex].id === postId) {
-    //             return midIndex;
-    //         }
-    //         else if(this._posts[midIndex].id < postId) {
-    //             minIndex = midIndex + 1;
-    //         }
-    //         else {
-    //             maxIndex = midIndex - 1;
-    //         }
-    //     }
-    //
-    //     return -1;
-    // }
-    //
-    // findPost(postId: number): Post {
-    //     let i = this.findPostIndex(postId);
-    //     return (i < 0 ? null : this._posts[i]);
-    // }
 }
 
 export enum Rating {
