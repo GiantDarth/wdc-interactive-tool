@@ -6,7 +6,7 @@ import urlLib = require('url');
 import events = require('events');
 import fs = require('fs');
 
-import * as WDC from './wdc';
+import * as WDC from './modules/wdc';
 
 // Cannot import, no definition.
 // User readline-sync for password hiding.
