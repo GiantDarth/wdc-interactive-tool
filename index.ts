@@ -20,6 +20,7 @@ if(process.argv.indexOf('-u') < 0 || process.argv.indexOf('-p') < 0) {
     console.error("-u {username} and -p {password} required.");
     process.exit(-1);
 }
+
 let username = process.argv[process.argv.indexOf("-u") + 1];
 let passwd = process.argv[process.argv.indexOf("-p") + 1];
 let url = process.argv[process.argv.length - 1];
@@ -37,7 +38,7 @@ getLoginSession(username, passwd, function(session) {
             fs.mkdirSync(USER_PATH);
         }
         // Save prettified JSON
-        fs.writeFileSync(FILE_PATH, JSON.stringify(story, null, 2), {
+        fs.writeFileSync(FILE_PATH, JSON.stringify(story, null, 4), {
             encoding: 'utf8'
         });
         console.log('Story saved to ' + FILE_PATH);
@@ -64,8 +65,8 @@ function getLoginSession(user: string, passwd: string, callback: (session: strin
     }
   };
   let req = https.request(options, function(res) {
-    console.log("Login Status: " + res.statusCode);
-    console.log('Login Headers: ' + JSON.stringify(res.headers));
+    //console.log("Login Status: " + res.statusCode);
+    //console.log('Login Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     let session: string[] = [];
     res.headers['set-cookie'].forEach(function(rawCookie) {
@@ -80,7 +81,6 @@ function getLoginSession(user: string, passwd: string, callback: (session: strin
           session.push('crypt_pw=' + encodeURI(parsedCookie['crypt_pw']))
       }
     });
-    console.log(session.join('; '));
     callback(session);
   });
 
@@ -107,7 +107,7 @@ function getStory(session: string[], url: string, callback: (story: WDC.Story) =
                 if(i >= paths.length) {
                     clearInterval(this);
                 }
-            }, 200);
+            }, 600);
         });
     });
 }
@@ -142,8 +142,6 @@ function grabStoryMain(session: string[], url: string, callback: (story: WDC.Sto
         }
         story.title = $('#Content_Column_Inner .proll').text();
         let userDOM = $('#updateTitle').next().find('span a').first();
-        console.log(userDOM.attr('title').split(' '))
-        console.log(userDOM.attr('title').split(' ')[1].split('\r\n'));
         story.author = {
             user: userDOM.length > 0 ? userDOM.attr('title').split(' ')[1].split('\r\n')[0] : null,
             name: userDOM.length > 0 ? userDOM.text() : null
@@ -196,7 +194,7 @@ function getStoryPost(session: string[], mainUrl: string, path: string, callback
           process.exit(-1);
         }
         post.id = parseInt($('#chapterContent td td').first().first().find('b').text());
-        post.title = $('#chapterContent td td').eq(1).find('big > big > b').text();
+        post.title = $('#chapterContent td td big > big > b').text();
         let userDOM = $('#chapterContent td td .noselect > a');
         post.author = {
             user: userDOM.length > 0 ? userDOM.attr('title').split(' ')[1].split('\r\n')[0] : null,
@@ -204,7 +202,7 @@ function getStoryPost(session: string[], mainUrl: string, path: string, callback
         };
         post.text = $("#chapterContent .KonaBody").text();
         if(path.length > 1) {
-            post.choiceTitle = $('#chapterContent td td').first().eq(1).find('b').text();
+            post.choiceTitle = $('#chapterContent td td').children().eq(1).find('b').first().text();
         }
         post.path = path;
         callback(post);
