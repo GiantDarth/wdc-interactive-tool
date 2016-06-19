@@ -1,10 +1,12 @@
 {
   "name": "wdc-interactive-tool",
-  "version": "1.0.0",
+  "version": "0.4.0-alpha.0",
   "description": "Extracts the data of an WDC Interactive Story into a JSON file.",
   "main": "index.js",
   "scripts": {
-    "test": "node index -u %WDC_USER% -p %WDC_PASSWORD% https://www.writing.com/main/interact/item_id/1424917-Really-Random-Questions"
+    "test --DOS": "node index -u %WDC_USER% -p %WDC_PASSWORD% https://www.writing.com/main/interact/item_id/1424917-Really-Random-Questions",
+    "test --Unix": "node index -u $WDC_USER -p $WDC_PASSWORD https://www.writing.com/main/interact/item_id/1424917-Really-Random-Questions",
+    "compile": "nexe -i index.js -o bin/wdc"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +14,6 @@
     "cheerio": "^0.19.0",
     "cookie": "^0.2.3",
     "querystring": "^0.2.0"
-    }
+  },
+  "devDependencies": {}
 }

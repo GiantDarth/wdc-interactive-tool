@@ -82,6 +82,9 @@ function getLoginSession(user: string, passwd: string, callback: (session: strin
           session.push('crypt_pw=' + encodeURI(parsedCookie['crypt_pw']))
       }
     });
+    if(session.length < 3) {
+        throw Error("Writing.com username, password combination failed.");
+    }
     callback(session);
   });
 
@@ -108,7 +111,7 @@ function getStory(session: string[], url: string, callback: (story: WDC.Story) =
                 if(i >= paths.length) {
                     clearInterval(this);
                 }
-            }, 600);
+            }, 300);
         });
     });
 }
@@ -125,7 +128,7 @@ function grabStoryMain(session: string[], url: string, callback: (story: WDC.Sto
 
     let story: WDC.Story = new WDC.Story();
 
-    console.log('Requesting https://%s%s...', options.host, options.path)
+    console.log('Requesting https://%s%s...', options.hostname, options.path)
     let req = https.get(options, function(res) {
       //console.log("Status: " + res.statusCode);
       //console.log('Headers: ' + JSON.stringify(res.headers));
@@ -195,6 +198,11 @@ function getStoryPost(session: string[], mainUrl: string, path: string, callback
           process.exit(-1);
         }
         post.id = parseInt($('#chapterContent td td').first().first().find('b').text());
+        // Page retrieval error, try again.
+        if(post.id === null) {
+          getStoryPost(session, mainUrl, path, callback);
+          return;
+        }
         post.title = $('#chapterContent td td big > big > b').text();
         let userDOM = $('#chapterContent td td .noselect > a');
         post.author = {
